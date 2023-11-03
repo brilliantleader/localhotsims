@@ -204,6 +204,7 @@ button {
 #image-gallery .other-profile:hover {
   opacity: 0.5;
   transition: all 0.4s ease;
+  cursor: pointer;
 }
 #image-gallery img {
   -o-object-fit: cover;
