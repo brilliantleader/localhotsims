@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Hot Sims</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="wrapper">
+      <h1>Chat now with Local Singles!</h1>
+      <div id="main-display">
+        <img src="images/plumbob.png" alt="" class="plumbob">
+        <div class="background-bar"></div>
+          <div class="content-wrapper">
+            <div class="content">
+              <h2 id="name-age"></h2>
+              <div id="label-name"></div>
+              <div id="first-chat"></div>
+              <div id="typing"></div>
+            </div>
+            <img id="main-image" src="" alt="Your hot local single" />
+          </div>
+          <div class="bottom-main">
+            <div class="button-zone">
+              <button>start webcam</button>
+              <button>icebreaker</button>
+              <button id="timer">+1 Min</button>
+            </div>
+            <div class="chatbar">
+              <textarea rows="1"></textarea>
+              <button>start chat now »</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="more">
+          <h2>Ready for more local hot single sims?</h2>
+          <marquee>They are hot and ready to mingle They are hot and ready to mingle They are hot and ready to mingle They are hot and ready to mingle They are hot and ready to mingle</marquee>
+           <button id="random-button">Get a New Hot Local Single</button>
+        </div>
+        
+        <div id="image-gallery"></div>
+    </div>
+
+
+    <script>
+        const userData = [
+          { name: "Phil", lastname: "McGraw", age: 73, imageSrc: "images/phil.jpg", chatIntro: "Hey, I'm Dr. Phil, and I'm here to analyze the recipe of love and find the perfect match." },
+          { name: "Guy", lastname: "Fieri", age: 55, imageSrc: "images/guy.jpg", chatIntro: "Howdy, I'm Guy, and I'm looking for a partner to take on flavor adventures together – we'll be the ultimate dynamic flavor duo!" },
+          { name: "Ken", lastname: "Ergy", age: 26, imageSrc: "images/ken.jpg", chatIntro: "Hi, I'm Ken Ergy and I'm looking for a Ken Orgy!!" },
+        ];
+        
+        function updateMainDisplay(data) {
+          document.getElementById('name-age').textContent = data.name + " " + data.lastname + ", " + data.age;
+          document.getElementById('label-name').textContent = data.name;
+          document.getElementById('typing').textContent = data.name + " is typing";
+          document.getElementById('first-chat').textContent = data.chatIntro;
+          document.getElementById('main-image').src = data.imageSrc;
+        }
+        
+        function randomizeUser() {
+          const randomIndex = Math.floor(Math.random() * userData.length);
+          updateMainDisplay(userData[randomIndex]);
+        }
+        
+        function populateImages() {
+          const gallery = document.getElementById('image-gallery');
+          userData.forEach((user, index) => {
+            let img = document.createElement('img');
+            img.src = user.imageSrc;
+            img.alt = user.name;
+            img.addEventListener('click', () => updateMainDisplay(user));
+            gallery.appendChild(img);
+          });
+        }
+        
+        document.getElementById('random-button').addEventListener('click', randomizeUser);
+        
+        populateImages();
+        randomizeUser();
+    </script>
+    
+</body>
+</html>
