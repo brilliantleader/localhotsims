@@ -81,15 +81,22 @@
         }
 
         function populateImages() {
-          const gallery = document.getElementById('image-gallery');
-          userData.forEach((user, index) => {
-            let img = document.createElement('img');
-            img.src = user.imageSrc;
-            img.alt = user.name;
-            img.addEventListener('click', () => updateMainDisplay(user));
-            gallery.appendChild(img);
-          });
-        }
+        const gallery = document.getElementById('image-gallery');
+        userData.forEach((user, index) => {
+          let profileDiv = document.createElement('div');
+          profileDiv.className = 'other-profile';
+
+          let img = document.createElement('img');
+          img.src = user.imageSrc;
+          img.alt = user.name;
+          
+          profileDiv.addEventListener('click', () => updateMainDisplay(user));
+          
+          profileDiv.appendChild(img);
+
+          gallery.appendChild(profileDiv);
+        });
+      }
 
         document.getElementById('random-button').addEventListener('click', randomizeUser);
 
