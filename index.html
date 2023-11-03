@@ -10,7 +10,7 @@
 <body>
 
     <div class="wrapper">
-      <h1>Chat now with Local Singles!</h1>
+      <h1>Chat Now with Local Hot Singles!</h1>
       <div id="main-display">
         <img src="images/plumbob.png" alt="" class="plumbob">
         <div class="background-bar"></div>
@@ -30,9 +30,9 @@
               <button id="timer">+1 Min</button>
             </div>
             <div class="chatbar">
-              <textarea rows="1"></textarea>
-              <button>start chat now »</button>
-            </div>
+              <textarea id="chat-input" rows="1"></textarea>
+              <button id="start-chat">start chat now »</button>
+          </div>
           </div>
         </div>
 
@@ -56,19 +56,30 @@
             { name: "Shelly", lastname: "Tours", age: 28, imageSrc: "images/shelly.jpg", chatIntro: "Explore the hidden whispers of architecture with me, and let's craft a story where every detail is as tantalizing as the journey itself. Ready for a tour that's as exclusive as my content?" },
         ];
         
+        let isFirstMessage = true;
+
         function updateMainDisplay(data) {
           document.getElementById('name-age').textContent = data.name + " " + data.lastname + ", " + data.age;
           document.getElementById('label-name').textContent = data.name;
           document.getElementById('typing').textContent = data.name + " is typing";
-          document.getElementById('first-chat').textContent = data.chatIntro;
           document.getElementById('main-image').src = data.imageSrc;
+          
+          const chatDisplay = document.getElementById('first-chat');
+          chatDisplay.innerHTML = ''; 
+
+          const introDiv = document.createElement('div');
+          introDiv.className = 'chat-message';
+          introDiv.textContent = data.chatIntro;
+          chatDisplay.appendChild(introDiv);
+
+          isFirstMessage = true; 
         }
-        
+
         function randomizeUser() {
           const randomIndex = Math.floor(Math.random() * userData.length);
           updateMainDisplay(userData[randomIndex]);
         }
-        
+
         function populateImages() {
           const gallery = document.getElementById('image-gallery');
           userData.forEach((user, index) => {
@@ -79,9 +90,40 @@
             gallery.appendChild(img);
           });
         }
-        
+
         document.getElementById('random-button').addEventListener('click', randomizeUser);
-        
+
+        function sendMessage() {
+          const input = document.getElementById('chat-input');
+          const message = input.value.trim();
+          if (message) {
+            const chatDisplay = document.getElementById('first-chat');
+
+            if (isFirstMessage) {
+              const labelDiv = document.createElement('div');
+              labelDiv.className = 'label';
+              labelDiv.textContent = 'You';
+              chatDisplay.appendChild(labelDiv);
+              isFirstMessage = false;
+            }
+
+            const newMessageDiv = document.createElement('div');
+            newMessageDiv.textContent = message;
+            newMessageDiv.className = 'chat-message';
+            chatDisplay.appendChild(newMessageDiv);
+            input.value = '';
+          }
+        }
+
+        document.getElementById('start-chat').addEventListener('click', sendMessage);
+
+        document.getElementById('chat-input').addEventListener('keypress', function(event) {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            sendMessage();
+          }
+        });
+
         populateImages();
         randomizeUser();
     </script>
