@@ -26,7 +26,7 @@
           <div class="bottom-main">
             <div class="button-zone">
               <button>start webcam</button>
-              <button>icebreaker</button>
+              <button id="icebreaker-button">icebreaker</button>
               <button id="timer">+1 Min</button>
             </div>
             <div class="chatbar">
@@ -45,6 +45,20 @@
         <div id="image-gallery"></div>
     </div>
 
+    <!-- Pop-up Modal -->
+    <div id="webcam-popup" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="warning-content">
+          <img src="images/warning.png" alt="warning">
+          <h2>WARNING!<br>VIRUS DETECTED!</h2>
+         <p>In order to be protected from hackers attacks and fraud please make a grilled cheese.</p>
+         <p><em>Does your dad know you're visiting this website?</em></p>
+        </div>
+      </div>
+    </div>
+
+
 
     <script>
         const userData = [
@@ -55,6 +69,37 @@
             { name: "Local Hot", lastname: "Dad", age: 38, imageSrc: "images/dad.jpg", chatIntro: "Hey hungry, I'm dad;)" },
             { name: "Shelly", lastname: "Tours", age: 28, imageSrc: "images/shelly.jpg", chatIntro: "Explore the hidden whispers of architecture with me, and let's craft a story where every detail is as tantalizing as the journey itself. Ready for a tour that's as exclusive as my content?" },
         ];
+
+        const icebreakers = [
+        "Are you a magician? Because whenever I look at you, everyone else disappears.",
+        "Is your name Wi-Fi? Because I'm really feeling a connection.",
+        "Do you have a map? I just got lost in your eyes.",
+        "Do you have a name, or can I call you mine?",
+        "Are you a campfire? Because you're hot, and I want s'more.",
+        "Is your dad a baker? Because you're a cutie pie.",
+        "If you were a vegetable, you'd be a cute-cumber.",
+        "Do you have a sunburn, or are you always this hot?",
+        "Do you have a Band-Aid? I just scraped my knee falling for you.",
+        "Are you made of copper and tellurium? Because you're Cu-Te.",
+        "Is your dad an artist? Because you're a masterpiece.",
+        "Do you have a quarter? I want to call my mom and tell her I met the girl of my dreams.",
+        "If you were a fruit, you'd be a fine-apple.",
+        "Are you a time traveler? Because I can see you in my future.",
+        "Is there an airport nearby, or is that just my heart taking off when I see you?",
+        "Are you a camera? Every time I look at you, I smile.",
+        "Is your name Google? Because you have everything I've been searching for.",
+        "Do you believe in love at first sight, or should I walk by again?",
+        "Are you a campfire? Because you're hot, and I want to roast marshmallows.",
+        "If kisses were snowflakes, I'd send you a blizzard."
+        ];
+
+        function insertRandomIcebreaker() {
+          const randomIndex = Math.floor(Math.random() * icebreakers.length);
+          const randomIcebreaker = icebreakers[randomIndex];
+          const inputField = document.getElementById('chat-input');
+          inputField.value = randomIcebreaker; // Set the icebreaker message as the input field value
+          inputField.focus(); // Optional: Bring focus to the input field
+        }
         
         let isFirstMessage = true;
 
@@ -99,6 +144,7 @@
       }
 
         document.getElementById('random-button').addEventListener('click', randomizeUser);
+        document.getElementById('icebreaker-button').addEventListener('click', insertRandomIcebreaker);
 
         function sendMessage() {
           const input = document.getElementById('chat-input');
@@ -133,6 +179,35 @@
 
         populateImages();
         randomizeUser();
+    </script>
+
+    <script>
+      var modal = document.getElementById('webcam-popup');
+
+      var btn = document.querySelector('.button-zone button'); 
+      var span = document.getElementsByClassName('close-button')[0];
+
+      btn.onclick = function() {
+        modal.style.display = 'block';
+      }
+
+      span.onclick = function() {
+        modal.style.display = 'none';
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      }
+
+      document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27) {
+          modal.style.display = 'none';
+        }
+      };
+
     </script>
     
 </body>
